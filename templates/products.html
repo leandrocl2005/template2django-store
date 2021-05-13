@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="tooplate_main"><span class="main_border main_border_t"></span><span class="main_border main_border_b"></span>
+    <div class="product">
+        <h1>Produtos</h1>
+        {% for product in products %}
+        <div class="product_box">
+            <div class="img_box"><span></span>
+                <a href="/product/{{product.id}}"><img width="150px" height="150px" src="{{product.photo.url}}"
+                        alt="image" /></a>
+            </div>
+            <h2><a href="/product/{{product.id}}">{{product.name}}</a></h2>
+            <p class="price">{{product.formatted_price}}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr />
+
+    {% if products.has_other_pages %}
+    <div class="pagging">
+        <ul>
+            {% if products.has_previous %}
+            <li><a id="{{products.previous_page_number}}" onclick="pageClick(this.id)"
+                    href="?page={{ products.previous_page_number }}">Anterior</a></li>
+            {% endif %}
+
+            {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+            <li><a id="{{i}}" style="background-color: brown;" onclick="pageClick(this.id)" href="?page={{i}}">{{i}}</a>
+            </li>
+            {% else %}
+            <li><a id="{{i}}" onclick="pageClick(this.id)" href="?page={{i}}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+            <li><a id="{{products.next_page_number}}" onclick="pageClick(this.id)"
+                    href="?page={{ products.next_page_number }}">Próxima</a></li>
+            {% endif %}
+        </ul>
+        <div class="clear"></div>
+    </div>
+    {% endif %}
+
+
+    <div class="clear"></div>
+</div> <!-- END of main -->
+{% endblock %}
+
+{% block other_scripts %}
+<script>
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function pageClick(page) {
+
+        this.event.preventDefault();
+
+        const search_term = getParameterByName('search');
+        const category_name = getParameterByName('category');
+
+        if (search_term) {
+            window.location.href = `?page=${page}&search=${search_term}`;
+        } else if (category_name) {
+            window.location.href = `?page=${page}&category=${category_name}`;
+        } else {
+            window.location.href = `?page=${page}`;
+        }
+
+    }
+</script>
+{% endblock %}

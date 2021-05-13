@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div id="tooplate_main"><span class="main_border main_border_t"></span><span class="main_border main_border_b"></span>
+
+    <div class="product">
+        <div class="col col_2 product_preview">
+            <a rel="lightbox" href="{{product.photo.url}}"><img width="350px" height="350px" src="{{product.photo.url}}"
+                    class=" left" alt="image" /></a>
+            <div class="clear"></div>
+        </div>
+        <div class="col col_2 product_detail">
+            <h1>{{product.name}}</h1>
+            <p><em>{{product.summary}}</em></p>
+            <p>{{product.description}}</p>
+            <div class="clear h20"></div>
+            <p class="price">{{product.formatted_price}}
+                <span>Disponibilidade:
+                    {% if product.avaliability %}<strong>Em estoque</strong>
+                    {% else %}<strong>Esgotado</strong>{% endif %}
+                </span>
+            </p>
+            <div class="clear h20"></div>
+            {% if product.avaliability %}
+            <p class="add_to_cart">Quantity <input type="text" value="1" style="width: 20px; text-align: right" /></p>
+            <a href="shoppingcart.html" class="button left">Add to Cart</a>
+            {% endif %}
+        </div>
+        <div class="">
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    <hr />
+
+    <div class="product">
+        <h2>Recommended Products</h2>
+        {% for recommended_product in recommended_products %}
+        <div class="product_box">
+            <div class="img_box"><span></span>
+                <a href="/product/{{recommended_product.id}}/"><img width="150px" height="150px"
+                        src="{{recommended_product.photo.url}}" alt="image" /></a>
+            </div>
+            <h2><a href="/product/{{recommended_product.id}}/">
+                    {{recommended_product.name}}
+                </a></h2>
+            <p class="price">{{recommended_product.formatted_price}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+</div> <!-- END of main -->
+{% endblock %}

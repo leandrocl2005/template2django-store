@@ -1,0 +1,36 @@
+<div id="tooplate_header">
+  <div id="header_top">
+    <div id="site_title"><a href="/">Clothing Template</a></div>
+    <div id="tooplate_menu" class="ddsmoothmenu">
+      <ul>
+        <li><a href="/" class="selected">Home</a></li>
+        <li><a href="/products">Produtos</a>
+          <ul>
+            {% for category in categories %}
+            <li><a href="/products/?category={{category.name}}">{{category.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <!--<li><a href="about.html">About</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        <li><a href="contact.html" class="last">Contact</a></li>-->
+      </ul>
+      <br style="clear: left" />
+    </div> <!-- end of tooplate_menu -->
+  </div> <!-- END of header top -->
+
+  <div id="header_bottom">
+    <p>
+      <a href="shoppingcart.html">My Cart</a> |
+      <a href="checkout.html">Check Out</a> |
+      <span>Item in Cart ( 10 )</span>
+    </p>
+
+    <div id="tooplate_search">
+      <form action="/products" method="get">
+        <input type="text" value="" name="search" id="search" onfocus="clearText(this)" onblur="clearText(this)"
+          class="txt_field" />
+      </form>
+    </div>
+  </div> <!-- END of header bottom -->
+</div> <!-- END of header -->

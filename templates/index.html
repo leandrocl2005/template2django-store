@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="tooplate_main"><span class="main_border main_border_t"></span><span class="main_border main_border_b"></span>
+    <div class="product">
+        <h1>Novidades</h1>
+        {% for new_product in new_products %}
+        <div class="product_box">
+            <div class="img_box"><span></span>
+                <a href="product/{{new_product.id}}/">
+                    <img width="150px" height="150px" src="{{new_product.photo}}" alt="image" /></a>
+            </div>
+            <h2><a href="product/{{new_product.id}}">{{new_product.name}}</a></h2>
+            <p class="price">{{new_product.formatted_price}}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="clear h20"></div>
+    <hr />
+    <div class="clear h10"></div>
+
+    <div class="product">
+        <h1>Mais acessados</h1>
+        {% for popular_product in popular_products %}
+        <div class="product_box">
+            <div class="img_box"><span></span>
+                <a href="product/{{popular_product.id}}/"><img width="150px" height="150px"
+                        src="{{popular_product.photo}}" alt="image" /></a>
+            </div>
+            <h2><a href="productdetail.html">{{popular_product.name}}</a></h2>
+            <p class="price">{{popular_product.formatted_price}}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="clear"></div>
+</div> <!-- END of main -->
+
+{% endblock %}
